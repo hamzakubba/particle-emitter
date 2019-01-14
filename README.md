@@ -1,7 +1,7 @@
 # Particle Emitter
-## An Atomic-CSS Library Generator
+An Atomic-CSS Library Generator
 
-### Instructions
+## Usage
 ```
 npm install --save particle-emitter
 ```
@@ -9,19 +9,41 @@ npm install --save particle-emitter
 ```
 import ParticleEmitter from 'particle-emitter';
 
-const emitter = new ParticleEmitter(tachyonsConfig));
+// see examples for config structure
+const styleConfig = {
+  defaultClassTemplate: ...,
+  defaultRuleTemplate: ...,
+  mediaQueries: ...,
+  lists: ...,
+  rules: ...,
+};
+
+const emitter = new ParticleEmitter(styleConfig));
 
 console.log(emitter.getCss()); // css
 ```
 
-### Tachyons
-An example that generates the [Tachyons](http://tachyons.io/) CSS output (or pretty close) is available in the [examples](examples/tachyons/tachyons.js) folder.
+## Examples
 
-To run it:
+To run the examples, you need to install the dependencies:
 ```
 npm install -g babel-node
 
 npm install
+```
 
+### Tachyons Spacing
+A small example that generates the css rules for spacing (padding and margin) from the [Tachyons library's CSS](http://tachyons.io/) is available in [examples/tachyons-spacing-only/](examples/tachyons-spacing-only/).
+
+To run it:
+```
+npm run tachyons-spacing-only
+```
+
+### Tachyons
+An example that generates the complete [Tachyons library's CSS](http://tachyons.io/) (or pretty close) is available in [examples/tachyons/](examples/tachyons/).
+
+To run it:
+```
 npm run tachyons
-```  
+```
