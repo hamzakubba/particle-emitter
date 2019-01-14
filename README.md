@@ -27,7 +27,7 @@ console.log(emitter.getCss()); // css
 
 To run the examples, you need to install the dependencies:
 ```
-npm install -g babel-node
+npm install -g babel-cli
 
 npm install
 ```
