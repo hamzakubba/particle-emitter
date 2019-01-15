@@ -37,8 +37,8 @@ export default class ParticleEmitter {
       rules,
       mediaQueries = [],
       lists = [],
-      defaultClassTemplate = '.$prefix$key$suffix$mediaQuery',
-      defaultRuleTemplate = '$value',
+      defaultClassTemplate = '.$prefix$mapKey$suffix$mediaQuery',
+      defaultRuleTemplate = '$mapValue',
     } = JSON.parse(JSON.stringify(config));
 
     this.rules = rules;
@@ -139,7 +139,7 @@ export default class ParticleEmitter {
     const repeatForMaps = new Map();
 
     if (map && map.length) {
-      repeatForMaps.set('', getMap(map));
+      repeatForMaps.set('map', getMap(map));
     }
 
     repeatFor.forEach(listName => repeatForMaps.set(listName, this.lists.get(listName)));
@@ -149,8 +149,8 @@ export default class ParticleEmitter {
 
       if (repeatForMaps.size === 1) {
         repeatForMaps.forEach((loop0Map, loop0Name) => {
-          const loop0KeyName = loop0Name ? loop0Name + 'Key' : 'key';
-          const loop0ValueName = loop0Name ? loop0Name + 'Value' : 'value';
+          const loop0KeyName = loop0Name + 'Key';
+          const loop0ValueName = loop0Name + 'Value';
 
           loop0Map.forEach((value0, key0) => {
             ruleCss += `${indent}${classTemplate} { ${ruleTemplate}; }\n`
@@ -171,12 +171,12 @@ export default class ParticleEmitter {
         const loop1 = entries.next().value;
 
         const [ loop0Name, loop0Map ] = loop0;
-        const loop0KeyName = loop0Name ? loop0Name + 'Key' : 'key';
-        const loop0ValueName = loop0Name ? loop0Name + 'Value' : 'value';
+        const loop0KeyName = loop0Name + 'Key';
+        const loop0ValueName = loop0Name + 'Value';
 
         const [ loop1Name, loop1Map ] = loop1;
-        const loop1KeyName = loop1Name ? loop1Name + 'Key' : 'key';
-        const loop1ValueName = loop1Name ? loop1Name + 'Value' : 'value';
+        const loop1KeyName = loop1Name + 'Key';
+        const loop1ValueName = loop1Name + 'Value';
 
         loop0Map.forEach((value0, key0) => {
           loop1Map.forEach((value1, key1) => {
@@ -202,16 +202,16 @@ export default class ParticleEmitter {
         const loop2 = entries.next().value;
 
         const [ loop0Name, loop0Map ] = loop0;
-        const loop0KeyName = loop0Name ? loop0Name + 'Key' : 'key';
-        const loop0ValueName = loop0Name ? loop0Name + 'Value' : 'value';
+        const loop0KeyName = loop0Name + 'Key';
+        const loop0ValueName = loop0Name + 'Value';
 
         const [ loop1Name, loop1Map ] = loop1;
-        const loop1KeyName = loop1Name ? loop1Name + 'Key' : 'key';
-        const loop1ValueName = loop1Name ? loop1Name + 'Value' : 'value';
+        const loop1KeyName = loop1Name + 'Key';
+        const loop1ValueName = loop1Name + 'Value';
 
         const [ loop2Name, loop2Map ] = loop2;
-        const loop2KeyName = loop2Name ? loop2Name + 'Key' : 'key';
-        const loop2ValueName = loop2Name ? loop2Name + 'Value' : 'value';
+        const loop2KeyName = loop2Name + 'Key';
+        const loop2ValueName = loop2Name + 'Value';
 
         loop0Map.forEach((value0, key0) => {
           loop1Map.forEach((value1, key1) => {
@@ -242,8 +242,8 @@ export default class ParticleEmitter {
         loops.push({
           map: map,
           depth: depth,
-          keyName: name ? name + 'Key' : 'key',
-          valueName: name ? name + 'Value' : 'value',
+          keyName: name + 'Key',
+          valueName: name + 'Value',
         });
 
         depth++;
@@ -289,8 +289,8 @@ export default class ParticleEmitter {
       ruleCss += `${indent}${this.defaultClassTemplate} { ${this.defaultRuleTemplate} }\n`
         .replace('$prefix', prefix)
         .replace('$suffix', suffix)
-        .replace('$key', key)
-        .replace('$value', value)
+        .replace('$mapKey', key)
+        .replace('$mapValue', value)
         .replace('$mediaQuery', mediaQuery)
       ;
     });

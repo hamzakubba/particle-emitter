@@ -16,10 +16,10 @@ import codeCss from './static/_code.css.txt';
 import listsCss from './static/_lists.css.txt';
 
 const directions = [
-  'top',
-  'right',
-  'bottom',
-  'left',
+  'top',    // equivalent to   ['top', 'top'],
+  'right',  //                 ['right', 'right'],
+  'bottom', //                 ['bottom', 'bottom'],
+  'left',   //                 ['left', 'left'],
 ];
 
 const mediaQueries = [
@@ -40,13 +40,13 @@ const spacingSizes = [
 ];
 
 const spacingDirections = [
-  ['a', '$value: $spacingSizesValue'],
-  ['l', '$value-left: $spacingSizesValue'],
-  ['r', '$value-right: $spacingSizesValue'],
-  ['b', '$value-bottom: $spacingSizesValue'],
-  ['t', '$value-top: $spacingSizesValue'],
-  ['v', '$value-top: $spacingSizesValue; $value-bottom: $spacingSizesValue'],
-  ['h', '$value-left: $spacingSizesValue; $value-right: $spacingSizesValue'],
+  ['a', '$mapValue: $spacingSizesValue'],
+  ['l', '$mapValue-left: $spacingSizesValue'],
+  ['r', '$mapValue-right: $spacingSizesValue'],
+  ['b', '$mapValue-bottom: $spacingSizesValue'],
+  ['t', '$mapValue-top: $spacingSizesValue'],
+  ['v', '$mapValue-top: $spacingSizesValue; $mapValue-bottom: $spacingSizesValue'],
+  ['h', '$mapValue-left: $spacingSizesValue; $mapValue-right: $spacingSizesValue'],
 ];
 
 const spacingNegativeSizes = [
@@ -60,11 +60,11 @@ const spacingNegativeSizes = [
 ];
 
 const spacingNegativeDirections = [
-  ['a', '$value: $spacingNegativeSizesValue'],
-  ['l', '$value-left: $spacingNegativeSizesValue'],
-  ['r', '$value-right: $spacingNegativeSizesValue'],
-  ['b', '$value-bottom: $spacingNegativeSizesValue'],
-  ['t', '$value-top: $spacingNegativeSizesValue'],
+  ['a', '$mapValue: $spacingNegativeSizesValue'],
+  ['l', '$mapValue-left: $spacingNegativeSizesValue'],
+  ['r', '$mapValue-right: $spacingNegativeSizesValue'],
+  ['b', '$mapValue-bottom: $spacingNegativeSizesValue'],
+  ['t', '$mapValue-top: $spacingNegativeSizesValue'],
 ];
 
 const overflows = [
@@ -153,8 +153,8 @@ const lists = [
   ['overflows', overflows],
 ];
 
-const defaultClassTemplate = '.$prefix$key$suffix$mediaQuery';
-const defaultRuleTemplate = '$value';
+const defaultClassTemplate = '.$prefix$mapKey$suffix$mediaQuery';
+const defaultRuleTemplate = '$mapValue';
 
 const rules = [
   [
@@ -187,7 +187,7 @@ const rules = [
         ['--5x7', '140'],
         ['--1x1', '100'],
       ],
-      ruleTemplate: 'padding-bottom: $value%',
+      ruleTemplate: 'padding-bottom: $mapValue%',
       customRules: [
         ['', 'height: 0; position: relative;'],
         ['--object', 'position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; z-index: 100;'],
@@ -209,7 +209,7 @@ const rules = [
         ['cover', 'cover'],
         ['contain', 'contain'],
       ],
-      ruleTemplate: 'background-size: $value!important',
+      ruleTemplate: 'background-size: $mapValue!important',
     },
   ],
   [
@@ -224,7 +224,7 @@ const rules = [
         ['bottom', 'bottom center'],
         ['left', 'center left'],
       ],
-      ruleTemplate: 'background-repeat: no-repeat; background-position: $value',
+      ruleTemplate: 'background-repeat: no-repeat; background-position: $mapValue',
     },
   ],
   [
@@ -237,7 +237,7 @@ const rules = [
         ['-transparent', '1px solid transparent'],
         ['-0', '0'],
       ],
-      ruleTemplate: 'outline: $value',
+      ruleTemplate: 'outline: $mapValue',
     },
   ],
   [
@@ -278,7 +278,7 @@ const rules = [
         ['-100', '100%'],
         ['-pill', '9999px'],
       ],
-      ruleTemplate: 'border-radius: $value',
+      ruleTemplate: 'border-radius: $mapValue',
       customRules: [
         ['--bottom', 'border-top-left-radius: 0; border-top-right-radius: 0;'],
         ['--top', 'border-bottom-left-radius: 0; border-bottom-right-radius: 0;'],
@@ -298,7 +298,7 @@ const rules = [
         'solid',
         'none',
       ],
-      ruleTemplate: 'border-style: $value',
+      ruleTemplate: 'border-style: $mapValue',
     },
   ],
   [
@@ -314,7 +314,7 @@ const rules = [
         ['w4', '1rem'],
         ['w5', '2rem'],
       ],
-      ruleTemplate: 'border-width: $value',
+      ruleTemplate: 'border-width: $mapValue',
       customRules: [
         ['t-0', 'border-top-width: 0;'],
         ['r-0', 'border-right-width: 0;'],
@@ -335,7 +335,7 @@ const rules = [
         ['4', '2px 2px 8px 0px'],
         ['5', '4px 4px 8px 0px'],
       ],
-      ruleTemplate: 'box-shadow: $value rgba( 0, 0, 0, 0.2 )',
+      ruleTemplate: 'box-shadow: $mapValue rgba( 0, 0, 0, 0.2 )',
     },
   ],
   [
@@ -356,8 +356,8 @@ const rules = [
         ['--1', '-1rem'],
         ['--2', '-2rem'],
       ],
-      classTemplate: '.$directionsKey$key$mediaQuery',
-      ruleTemplate: '$directionsKey: $value',
+      classTemplate: '.$directionsKey$mapKey$mediaQuery',
+      ruleTemplate: '$directionsKey: $mapValue',
       customRules: [
         ['absolute--fill', 'top: 0; right: 0; bottom: 0; left: 0;'],
       ],
@@ -381,7 +381,7 @@ const rules = [
         ['b', 'both'],
         ['n', 'none'],
       ],
-      ruleTemplate: 'clear: $value',
+      ruleTemplate: 'clear: $mapValue',
     },
   ],
   [
@@ -402,7 +402,7 @@ const rules = [
         ['t-column', 'table-column'],
         ['t-column-group', 'table-column-group'],
       ],
-      ruleTemplate: 'display: $value',
+      ruleTemplate: 'display: $mapValue',
       customRules: [
         ['t--fixed', 'table-layout: fixed; width: 100%;'],
       ],
@@ -439,7 +439,7 @@ const rules = [
         ['baseline', 'baseline'],
         ['stretch', 'stretch'],
       ],
-      ruleTemplate: 'align-items: $value',
+      ruleTemplate: 'align-items: $mapValue',
     },
   ],
   [
@@ -454,7 +454,7 @@ const rules = [
         ['baseline', 'baseline'],
         ['stretch', 'stretch'],
       ],
-      ruleTemplate: 'align-self: $value',
+      ruleTemplate: 'align-self: $mapValue',
     },
   ],
   [
@@ -469,7 +469,7 @@ const rules = [
         ['between', 'space-between'],
         ['around', 'space-around'],
       ],
-      ruleTemplate: 'justify-content: $value',
+      ruleTemplate: 'justify-content: $mapValue',
     },
   ],
   [
@@ -485,7 +485,7 @@ const rules = [
         ['around', 'space-around'],
         ['stretch', 'stretch'],
       ],
-      ruleTemplate: 'align-content: $value',
+      ruleTemplate: 'align-content: $mapValue',
     },
   ],
   [
@@ -505,7 +505,7 @@ const rules = [
         ['8', '8'],
         ['last', '99999'],
       ],
-      ruleTemplate: 'order: $value',
+      ruleTemplate: 'order: $mapValue',
     },
   ],
   [
@@ -517,7 +517,7 @@ const rules = [
         '0',
         '1',
       ],
-      ruleTemplate: 'flex-grow: $value',
+      ruleTemplate: 'flex-grow: $mapValue',
     },
   ],
   [
@@ -529,7 +529,7 @@ const rules = [
         '0',
         '1',
       ],
-      ruleTemplate: 'flex-shrink: $value',
+      ruleTemplate: 'flex-shrink: $mapValue',
     },
   ],
   [
@@ -558,7 +558,7 @@ const rules = [
         ['i', 'italic'],
         ['fs-normal', 'normal'],
       ],
-      ruleTemplate: 'font-style: $value',
+      ruleTemplate: 'font-style: $mapValue',
     },
   ],
   [
@@ -569,7 +569,7 @@ const rules = [
         'normal',
         ['b', 'bold'],
       ],
-      ruleTemplate: 'font-weight: $value',
+      ruleTemplate: 'font-weight: $mapValue',
     },
   ],
   [
@@ -588,7 +588,7 @@ const rules = [
         ['8', '800'],
         ['9', '900'],
       ],
-      ruleTemplate: 'font-weight: $value',
+      ruleTemplate: 'font-weight: $mapValue',
     },
   ],
   [
@@ -614,7 +614,7 @@ const rules = [
         ['-75', '75%'],
         ['-100', '100%'],
       ],
-      ruleTemplate: 'height: $value',
+      ruleTemplate: 'height: $mapValue',
     },
   ],
   [
@@ -625,7 +625,7 @@ const rules = [
       map: [
         ['-100', '100%'],
       ],
-      ruleTemplate: 'min-height: $value',
+      ruleTemplate: 'min-height: $mapValue',
     },
   ],
   [
@@ -639,7 +639,7 @@ const rules = [
         ['-75', '75vh'],
         ['-100', '100vh'],
       ],
-      ruleTemplate: 'height: $value',
+      ruleTemplate: 'height: $mapValue',
     },
   ],
   [
@@ -650,7 +650,7 @@ const rules = [
       map: [
         ['-100', '100vh'],
       ],
-      ruleTemplate: 'min-height: $value',
+      ruleTemplate: 'min-height: $mapValue',
     },
   ],
   [
@@ -662,7 +662,7 @@ const rules = [
         ['-auto', 'auto'],
         ['-inherit', 'inherit'],
       ],
-      ruleTemplate: 'height: $value',
+      ruleTemplate: 'height: $mapValue',
     },
   ],
   [
@@ -675,7 +675,7 @@ const rules = [
         ['-tight', '-.05em'],
         ['-mega', '.25em'],
       ],
-      ruleTemplate: 'letter-spacing: $value',
+      ruleTemplate: 'letter-spacing: $mapValue',
     },
   ],
   [
@@ -688,7 +688,7 @@ const rules = [
         ['title', '1.25'],
         ['copy', '1.5'],
       ],
-      ruleTemplate: 'line-height: $value',
+      ruleTemplate: 'line-height: $mapValue',
     },
   ],
   [
@@ -723,7 +723,7 @@ const rules = [
 
         ['-none', 'none'],
       ],
-      ruleTemplate: 'max-width: $value',
+      ruleTemplate: 'max-width: $mapValue',
     },
   ],
   [
@@ -757,7 +757,7 @@ const rules = [
         ['-two-third', 'calc(100% / 1.5)'],
         ['-auto', 'auto'],
       ],
-      ruleTemplate: 'width: $value',
+      ruleTemplate: 'width: $mapValue',
     },
   ],
   [
@@ -767,8 +767,8 @@ const rules = [
       repeatFor: ['overflows'],
       repeatForMediaQueries: true,
       map: ['', '-x', '-y'],
-      classTemplate: '.$prefix$key-$overflowsKey$mediaQuery',
-      ruleTemplate: 'overflow$key: $overflowsKey',
+      classTemplate: '.$prefix$mapKey-$overflowsKey$mediaQuery',
+      ruleTemplate: 'overflow$mapKey: $overflowsKey',
     },
   ],
   [
@@ -776,7 +776,7 @@ const rules = [
     {
       repeatForMediaQueries: true,
       map: [ 'static', 'relative', 'absolute', 'fixed' ],
-      ruleTemplate: 'position: $value',
+      ruleTemplate: 'position: $mapValue',
     },
   ],
   [
@@ -798,7 +798,7 @@ const rules = [
         ['025', '.025'],
         ['0', '0'],
       ],
-      ruleTemplate: 'opacity: $value',
+      ruleTemplate: 'opacity: $mapValue',
     },
   ],
   [
@@ -815,7 +815,7 @@ const rules = [
         '270',
         '315',
       ],
-      ruleTemplate: 'transform: rotate($valuedeg)',
+      ruleTemplate: 'transform: rotate($mapValuedeg)',
     },
   ],
   [
@@ -859,7 +859,7 @@ const rules = [
         ['p', 'padding'],
         ['m', 'margin'],
       ],
-      classTemplate: '.$key$spacingDirectionsKey$spacingSizesKey$mediaQuery',
+      classTemplate: '.$mapKey$spacingDirectionsKey$spacingSizesKey$mediaQuery',
       ruleTemplate: '$spacingDirectionsValue',
     },
   ],
@@ -871,7 +871,7 @@ const rules = [
       map: [
         ['n', 'margin'],
       ],
-      classTemplate: '.$key$spacingNegativeDirectionsKey$spacingNegativeSizesKey$mediaQuery',
+      classTemplate: '.$mapKey$spacingNegativeDirectionsKey$spacingNegativeSizesKey$mediaQuery',
       ruleTemplate: '$spacingNegativeDirectionsValue',
     },
   ],
@@ -890,7 +890,7 @@ const rules = [
         ['underline', 'underline'],
         ['no-underline', 'none'],
       ],
-      ruleTemplate: 'text-decoration: $value',
+      ruleTemplate: 'text-decoration: $mapValue',
     },
   ],
   [
@@ -904,7 +904,7 @@ const rules = [
         ['c', 'center'],
         ['j', 'justify'],
       ],
-      ruleTemplate: 'text-align: $value',
+      ruleTemplate: 'text-align: $mapValue',
     },
   ],
   [
@@ -918,7 +918,7 @@ const rules = [
         ['u', 'uppercase'],
         ['n', 'none'],
       ],
-      ruleTemplate: 'text-transform: $value',
+      ruleTemplate: 'text-transform: $mapValue',
     },
   ],
   [
@@ -937,7 +937,7 @@ const rules = [
         ['6', '.875'],
         ['7', '.75'],
       ],
-      ruleTemplate: 'font-size: $valuerem',
+      ruleTemplate: 'font-size: $mapValuerem',
     },
   ],
   [
@@ -989,7 +989,7 @@ const rules = [
         ['nowrap', 'nowrap'],
         ['pre', 'pre'],
       ],
-      ruleTemplate: 'white-space: $value',
+      ruleTemplate: 'white-space: $mapValue',
     },
   ],
   [
@@ -1003,7 +1003,7 @@ const rules = [
         ['top', 'top'],
         ['btm', 'bottom'],
       ],
-      ruleTemplate: 'vertical-align: $value',
+      ruleTemplate: 'vertical-align: $mapValue',
     },
   ],
   [
