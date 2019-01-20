@@ -1,4 +1,5 @@
 import ParticleEmitter from '../../src/ParticleEmitter';
+import util from "util";
 
 const tachyonsSpacingOnlyConfig = {
 
@@ -32,7 +33,7 @@ const tachyonsSpacingOnlyConfig = {
 
   rules: [
     [
-      'spacing',
+      'spacing', // the name of the rule, to be used by other libraries to generate docs, unused in css generation
       {
         // equivalent to making a list and putting it first in repeatFor below
         map: [
@@ -41,9 +42,9 @@ const tachyonsSpacingOnlyConfig = {
         ],
 
         // loop over the map and lists as such:
-        //   for each item in map:  ($mapKey, $mapValue)                                               <-- map always first
-        //     for each item in spacingDirections:  ($spacingDirectionsKey, $spacingDirectionsValue)   <-- first in repeatFor
-        //       for each item in spacingSizes:  ($spacingSizesKey, $spacingSizesValue)                <-- second in repeatFor
+        //   for <k,v> in map:  ($mapKey, $mapValue)                                               <-- map always first
+        //     for <k,v> in spacingDirections:  ($spacingDirectionsKey, $spacingDirectionsValue)   <-- first in repeatFor
+        //       for <k,v> in spacingSizes:  ($spacingSizesKey, $spacingSizesValue)                <-- second in repeatFor
         //         output "classTemplate: { ruleTemplate; }"
         repeatFor: ['spacingDirections', 'spacingSizes'],
 
@@ -54,15 +55,20 @@ const tachyonsSpacingOnlyConfig = {
         classTemplate: '.$mapKey$spacingDirectionsKey$spacingSizesKey$mediaQuery',
 
         // e.g. 'padding: .25rem' or 'margin-top: 16rem; margin-bottom: 16rem'
-        ruleTemplate: '$spacingDirectionsValue',
+        ruleTemplate: '$spacingDirectionsValue;',
       },
     ],
+    // [ 'rule2', { map: [ ... ], repeatFor: [ ... ], ... } ],
+    // [ 'rule3', { ... } ],
+    // ...
   ],
-
 };
 
-console.log('config', tachyonsSpacingOnlyConfig);
+console.log('config', util.inspect(tachyonsSpacingOnlyConfig, {showHidden: false, depth: null}));
 
-console.log('tachyons spacing only css', (
-  new ParticleEmitter(tachyonsSpacingOnlyConfig)).getCss()
+const particleEmitter = new ParticleEmitter(tachyonsSpacingOnlyConfig);
+
+console.log(
+  'tachyons spacing only css',
+  particleEmitter.getCss()
 );

@@ -38,7 +38,7 @@ export default class ParticleEmitter {
       mediaQueries = [],
       lists = [],
       defaultClassTemplate = '.$prefix$mapKey$suffix$mediaQuery',
-      defaultRuleTemplate = '$mapValue',
+      defaultRuleTemplate = '$mapValue;',
     } = JSON.parse(JSON.stringify(config));
 
     this.rules = rules;
@@ -66,18 +66,28 @@ export default class ParticleEmitter {
     });
   }
 
+  getJson() {
+    return {
+      lists: Array.from(this.mediaQueries),
+      mediaQueries: Array.from(this.mediaQueries),
+      rules: Array.from(this.rules),
+      defaultClassTemplate: this.defaultClassTemplate,
+      defaultRuleTemplate: this.defaultRuleTemplate,
+    };
+  }
+
   getCss() {
     let css = '\n';
 
-    // non-media-dependent rules:
-    this.rules
-      .forEach((value, key) => {
-        css += this.getRuleCss({ key, value });
-      });
+    // media-query-INdependent rules:
+    this.rules.forEach((value, key) => {
+      css += this.getRuleCss({ key, value /* mediaQuery: undefined, indent: undefined */ });
+    });
 
     css += '\n';
 
-    // media-dependent rules:
+
+    // media-query-dependent rules:
     let indent;
     this.mediaQueries.forEach((mediaQueryMinMax, mediaQuery) => {
       if (!mediaQuery) {
@@ -95,12 +105,11 @@ export default class ParticleEmitter {
         indent = '  ';
       }
 
-      this.rules
-        .forEach((value, key) => {
-          if (value.repeatForMediaQueries) {
-            css += this.getRuleCss({ indent, mediaQuery, key, value });
-          }
-        });
+      this.rules.forEach((value, key) => {
+        if (value.repeatForMediaQueries) {
+          css += this.getRuleCss({ indent, mediaQuery, key, value });
+        }
+      });
 
       if (mediaQuery) {
         css += '}';
@@ -128,7 +137,7 @@ export default class ParticleEmitter {
       classTemplate = this.defaultClassTemplate,
       ruleTemplate = this.defaultRuleTemplate,
       staticRules = '',
-      customRules = [],
+      mapWithDefaultTemplates = [],
       repeatFor = [],
     } = value;
 
@@ -257,10 +266,11 @@ export default class ParticleEmitter {
             loopStack.pop();
           });
         } else {
-          let css = `${indent}${classTemplate} { ${ruleTemplate}; }\n`
-            .replace(new RegExp('\\$prefix', 'g'), prefix)
-            .replace(new RegExp('\\$suffix', 'g'), suffix)
-            .replace(new RegExp('\\$mediaQuery', 'g'), mediaQuery);
+          const replacements = [
+            ['prefix', prefix],
+            ['suffix', suffix],
+            ['mediaQuery', mediaQuery],
+          ];
 
           // repeat the replacements as many times as there are loops,
           // to safely resolve all references (e.g. second and third degree references)
@@ -268,30 +278,35 @@ export default class ParticleEmitter {
 
             let outputDepth = 0;
             loopStack.forEach(([ key, value ]) => {
-              css = css
-                .replace(new RegExp('\\$' + loops[outputDepth].keyName, 'g'), key)
-                .replace(new RegExp('\\$' + loops[outputDepth].valueName, 'g'), value);
+              replacements.push([loops[outputDepth].keyName, key]);
+              replacements.push([loops[outputDepth].valueName, value]);
 
               outputDepth++;
             });
 
           });
 
-          ruleCss += css;
+          let loopCss = `${indent}${classTemplate} { ${ruleTemplate} }\n`;
+
+          replacements.forEach(([ find, replaceWith ]) => {
+            loopCss = loopCss.replace(new RegExp('\\$' + find, 'g'), replaceWith);
+          });
+
+          ruleCss += loopCss;
         }
       };
 
       looper(loops);
     }
 
-    const customRulesMap = getMap(customRules);
-    customRulesMap.forEach((value, key) => {
+    const mapWithDefaultTemplatesMap = getMap(mapWithDefaultTemplates);
+    mapWithDefaultTemplatesMap.forEach((value, key) => {
       ruleCss += `${indent}${this.defaultClassTemplate} { ${this.defaultRuleTemplate} }\n`
-        .replace('$prefix', prefix)
-        .replace('$suffix', suffix)
-        .replace('$mapKey', key)
-        .replace('$mapValue', value)
-        .replace('$mediaQuery', mediaQuery)
+        .replace(/\$prefix/g, prefix)
+        .replace(/\$suffix/g, suffix)
+        .replace(/\$mapKey/g, key)
+        .replace(/\$mapValue/g, value)
+        .replace(/\$mediaQuery/g, mediaQuery)
       ;
     });
 

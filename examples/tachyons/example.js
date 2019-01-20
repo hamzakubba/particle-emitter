@@ -1,3 +1,5 @@
+import util from 'util';
+
 import ParticleEmitter from '../../src/ParticleEmitter';
 
 import normalizeCss from './static/_normalize.css.txt';
@@ -174,6 +176,9 @@ const rules = [
     {
       prefix: 'aspect-ratio',
       repeatForMediaQueries: true,
+
+      // map uses the rule's classTemplate and ruleTemplate if specified, and falls back
+      // to defaultClassTemplate and defaultRuleTemplate respectively when unspecified
       map: [
         ['--16x9', '56.25'],
         ['--9x16', '177.77'],
@@ -187,8 +192,10 @@ const rules = [
         ['--5x7', '140'],
         ['--1x1', '100'],
       ],
-      ruleTemplate: 'padding-bottom: $mapValue%',
-      customRules: [
+      ruleTemplate: 'padding-bottom: $mapValue%;',
+
+      // mapWithDefaultTemplates uses the defaultClassTemplate and defaultRuleTemplate
+      mapWithDefaultTemplates: [
         ['', 'height: 0; position: relative;'],
         ['--object', 'position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; z-index: 100;'],
       ],
@@ -209,7 +216,7 @@ const rules = [
         ['cover', 'cover'],
         ['contain', 'contain'],
       ],
-      ruleTemplate: 'background-size: $mapValue!important',
+      ruleTemplate: 'background-size: $mapValue!important;',
     },
   ],
   [
@@ -224,7 +231,7 @@ const rules = [
         ['bottom', 'bottom center'],
         ['left', 'center left'],
       ],
-      ruleTemplate: 'background-repeat: no-repeat; background-position: $mapValue',
+      ruleTemplate: 'background-repeat: no-repeat; background-position: $mapValue;',
     },
   ],
   [
@@ -237,7 +244,7 @@ const rules = [
         ['-transparent', '1px solid transparent'],
         ['-0', '0'],
       ],
-      ruleTemplate: 'outline: $mapValue',
+      ruleTemplate: 'outline: $mapValue;',
     },
   ],
   [
@@ -245,13 +252,15 @@ const rules = [
     {
       prefix: 'b',
       repeatForMediaQueries: true,
+      // for this particular rule, mapWithDefaultTemplates is equivalent because there is no ruleTemplate
+      // nor classTemplate defined for the rule
       map: [
-        ['a', 'border-style: solid; border-width: 1px'],
-        ['t', 'border-top-style: solid; border-top-width: 1px'],
-        ['r', 'border-right-style: solid; border-right-width: 1px'],
-        ['b', 'border-bottom-style: solid; border-bottom-width: 1px'],
-        ['l', 'border-left-style: solid; border-left-width: 1px'],
-        ['n', 'border-style: none; border-width: 0'],
+        ['a', 'border-style: solid; border-width: 1px;'],
+        ['t', 'border-top-style: solid; border-top-width: 1px;'],
+        ['r', 'border-right-style: solid; border-right-width: 1px;'],
+        ['b', 'border-bottom-style: solid; border-bottom-width: 1px;'],
+        ['l', 'border-left-style: solid; border-left-width: 1px;'],
+        ['n', 'border-style: none; border-width: 0;'],
       ],
     },
   ],
@@ -261,7 +270,7 @@ const rules = [
       prefix: 'b--',
       repeatFor: ['colors'],
       classTemplate: '.$prefix$colorsKey',
-      ruleTemplate: 'border-color: $colorsValue',
+      ruleTemplate: 'border-color: $colorsValue;',
     },
   ],
   [
@@ -278,8 +287,8 @@ const rules = [
         ['-100', '100%'],
         ['-pill', '9999px'],
       ],
-      ruleTemplate: 'border-radius: $mapValue',
-      customRules: [
+      ruleTemplate: 'border-radius: $mapValue;',
+      mapWithDefaultTemplates: [
         ['--bottom', 'border-top-left-radius: 0; border-top-right-radius: 0;'],
         ['--top', 'border-bottom-left-radius: 0; border-bottom-right-radius: 0;'],
         ['--right', 'border-top-left-radius: 0; border-bottom-left-radius: 0;'],
@@ -298,7 +307,7 @@ const rules = [
         'solid',
         'none',
       ],
-      ruleTemplate: 'border-style: $mapValue',
+      ruleTemplate: 'border-style: $mapValue;',
     },
   ],
   [
@@ -314,8 +323,8 @@ const rules = [
         ['w4', '1rem'],
         ['w5', '2rem'],
       ],
-      ruleTemplate: 'border-width: $mapValue',
-      customRules: [
+      ruleTemplate: 'border-width: $mapValue;',
+      mapWithDefaultTemplates: [
         ['t-0', 'border-top-width: 0;'],
         ['r-0', 'border-right-width: 0;'],
         ['b-0', 'border-bottom-width: 0;'],
@@ -335,7 +344,7 @@ const rules = [
         ['4', '2px 2px 8px 0px'],
         ['5', '4px 4px 8px 0px'],
       ],
-      ruleTemplate: 'box-shadow: $mapValue rgba( 0, 0, 0, 0.2 )',
+      ruleTemplate: 'box-shadow: $mapValue rgba( 0, 0, 0, 0.2 );',
     },
   ],
   [
@@ -357,8 +366,8 @@ const rules = [
         ['--2', '-2rem'],
       ],
       classTemplate: '.$directionsKey$mapKey$mediaQuery',
-      ruleTemplate: '$directionsKey: $mapValue',
-      customRules: [
+      ruleTemplate: '$directionsKey: $mapValue;',
+      mapWithDefaultTemplates: [
         ['absolute--fill', 'top: 0; right: 0; bottom: 0; left: 0;'],
       ],
     },
@@ -381,7 +390,7 @@ const rules = [
         ['b', 'both'],
         ['n', 'none'],
       ],
-      ruleTemplate: 'clear: $mapValue',
+      ruleTemplate: 'clear: $mapValue;',
     },
   ],
   [
@@ -402,8 +411,8 @@ const rules = [
         ['t-column', 'table-column'],
         ['t-column-group', 'table-column-group'],
       ],
-      ruleTemplate: 'display: $mapValue',
-      customRules: [
+      ruleTemplate: 'display: $mapValue;',
+      mapWithDefaultTemplates: [
         ['t--fixed', 'table-layout: fixed; width: 100%;'],
       ],
     },
@@ -412,7 +421,7 @@ const rules = [
     'flexbox-base',
     {
       repeatForMediaQueries: true,
-      customRules: [
+      mapWithDefaultTemplates: [
         ['flex', 'display: flex;'],
         ['inline-flex', 'display: inline-flex;'],
         ['flex-auto', 'flex: 1 1 auto; min-width: 0; min-height: 0;'],
@@ -439,7 +448,7 @@ const rules = [
         ['baseline', 'baseline'],
         ['stretch', 'stretch'],
       ],
-      ruleTemplate: 'align-items: $mapValue',
+      ruleTemplate: 'align-items: $mapValue;',
     },
   ],
   [
@@ -454,7 +463,7 @@ const rules = [
         ['baseline', 'baseline'],
         ['stretch', 'stretch'],
       ],
-      ruleTemplate: 'align-self: $mapValue',
+      ruleTemplate: 'align-self: $mapValue;',
     },
   ],
   [
@@ -469,7 +478,7 @@ const rules = [
         ['between', 'space-between'],
         ['around', 'space-around'],
       ],
-      ruleTemplate: 'justify-content: $mapValue',
+      ruleTemplate: 'justify-content: $mapValue;',
     },
   ],
   [
@@ -485,7 +494,7 @@ const rules = [
         ['around', 'space-around'],
         ['stretch', 'stretch'],
       ],
-      ruleTemplate: 'align-content: $mapValue',
+      ruleTemplate: 'align-content: $mapValue;',
     },
   ],
   [
@@ -505,7 +514,7 @@ const rules = [
         ['8', '8'],
         ['last', '99999'],
       ],
-      ruleTemplate: 'order: $mapValue',
+      ruleTemplate: 'order: $mapValue;',
     },
   ],
   [
@@ -517,7 +526,7 @@ const rules = [
         '0',
         '1',
       ],
-      ruleTemplate: 'flex-grow: $mapValue',
+      ruleTemplate: 'flex-grow: $mapValue;',
     },
   ],
   [
@@ -529,7 +538,7 @@ const rules = [
         '0',
         '1',
       ],
-      ruleTemplate: 'flex-shrink: $mapValue',
+      ruleTemplate: 'flex-shrink: $mapValue;',
     },
   ],
   [
@@ -537,7 +546,7 @@ const rules = [
     {
       prefix: 'f',
       repeatForMediaQueries: true,
-      customRules: [
+      mapWithDefaultTemplates: [
         ['l', 'float: left; _display: inline;'],
         ['r', 'float: right; _display: inline;'],
         ['n', 'float: none'],
@@ -558,7 +567,7 @@ const rules = [
         ['i', 'italic'],
         ['fs-normal', 'normal'],
       ],
-      ruleTemplate: 'font-style: $mapValue',
+      ruleTemplate: 'font-style: $mapValue;',
     },
   ],
   [
@@ -569,7 +578,7 @@ const rules = [
         'normal',
         ['b', 'bold'],
       ],
-      ruleTemplate: 'font-weight: $mapValue',
+      ruleTemplate: 'font-weight: $mapValue;',
     },
   ],
   [
@@ -588,7 +597,7 @@ const rules = [
         ['8', '800'],
         ['9', '900'],
       ],
-      ruleTemplate: 'font-weight: $mapValue',
+      ruleTemplate: 'font-weight: $mapValue;',
     },
   ],
   [
@@ -614,7 +623,7 @@ const rules = [
         ['-75', '75%'],
         ['-100', '100%'],
       ],
-      ruleTemplate: 'height: $mapValue',
+      ruleTemplate: 'height: $mapValue;',
     },
   ],
   [
@@ -625,7 +634,7 @@ const rules = [
       map: [
         ['-100', '100%'],
       ],
-      ruleTemplate: 'min-height: $mapValue',
+      ruleTemplate: 'min-height: $mapValue;',
     },
   ],
   [
@@ -639,7 +648,7 @@ const rules = [
         ['-75', '75vh'],
         ['-100', '100vh'],
       ],
-      ruleTemplate: 'height: $mapValue',
+      ruleTemplate: 'height: $mapValue;',
     },
   ],
   [
@@ -650,7 +659,7 @@ const rules = [
       map: [
         ['-100', '100vh'],
       ],
-      ruleTemplate: 'min-height: $mapValue',
+      ruleTemplate: 'min-height: $mapValue;',
     },
   ],
   [
@@ -662,7 +671,7 @@ const rules = [
         ['-auto', 'auto'],
         ['-inherit', 'inherit'],
       ],
-      ruleTemplate: 'height: $mapValue',
+      ruleTemplate: 'height: $mapValue;',
     },
   ],
   [
@@ -675,7 +684,7 @@ const rules = [
         ['-tight', '-.05em'],
         ['-mega', '.25em'],
       ],
-      ruleTemplate: 'letter-spacing: $mapValue',
+      ruleTemplate: 'letter-spacing: $mapValue;',
     },
   ],
   [
@@ -688,7 +697,7 @@ const rules = [
         ['title', '1.25'],
         ['copy', '1.5'],
       ],
-      ruleTemplate: 'line-height: $mapValue',
+      ruleTemplate: 'line-height: $mapValue;',
     },
   ],
   [
@@ -723,7 +732,7 @@ const rules = [
 
         ['-none', 'none'],
       ],
-      ruleTemplate: 'max-width: $mapValue',
+      ruleTemplate: 'max-width: $mapValue;',
     },
   ],
   [
@@ -757,7 +766,7 @@ const rules = [
         ['-two-third', 'calc(100% / 1.5)'],
         ['-auto', 'auto'],
       ],
-      ruleTemplate: 'width: $mapValue',
+      ruleTemplate: 'width: $mapValue;',
     },
   ],
   [
@@ -768,7 +777,7 @@ const rules = [
       repeatForMediaQueries: true,
       map: ['', '-x', '-y'],
       classTemplate: '.$prefix$mapKey-$overflowsKey$mediaQuery',
-      ruleTemplate: 'overflow$mapKey: $overflowsKey',
+      ruleTemplate: 'overflow$mapKey: $overflowsKey;',
     },
   ],
   [
@@ -776,7 +785,7 @@ const rules = [
     {
       repeatForMediaQueries: true,
       map: [ 'static', 'relative', 'absolute', 'fixed' ],
-      ruleTemplate: 'position: $mapValue',
+      ruleTemplate: 'position: $mapValue;',
     },
   ],
   [
@@ -798,7 +807,7 @@ const rules = [
         ['025', '.025'],
         ['0', '0'],
       ],
-      ruleTemplate: 'opacity: $mapValue',
+      ruleTemplate: 'opacity: $mapValue;',
     },
   ],
   [
@@ -815,7 +824,7 @@ const rules = [
         '270',
         '315',
       ],
-      ruleTemplate: 'transform: rotate($mapValuedeg)',
+      ruleTemplate: 'transform: rotate($mapValuedeg);',
     },
   ],
   [
@@ -823,7 +832,7 @@ const rules = [
     {
       repeatFor: ['colors'],
       classTemplate: '.$colorsKey',
-      ruleTemplate: 'color: $colorsValue',
+      ruleTemplate: 'color: $colorsValue;',
     },
   ],
   [
@@ -831,7 +840,7 @@ const rules = [
     {
       repeatFor: ['colors'],
       classTemplate: '.bg-$colorsKey',
-      ruleTemplate: 'background-color: $colorsValue',
+      ruleTemplate: 'background-color: $colorsValue;',
     },
   ],
   [
@@ -839,7 +848,7 @@ const rules = [
     {
       repeatFor: ['colors'],
       classTemplate: '.hover-$colorsKey:hover,.hover-$colorsKey:focus',
-      ruleTemplate: 'color: $colorsValue',
+      ruleTemplate: 'color: $colorsValue;',
     },
   ],
   [
@@ -847,7 +856,7 @@ const rules = [
     {
       repeatFor: ['colors'],
       classTemplate: '.hover-bg-$colorsKey:hover, .hover-bg-$colorsKey:focus',
-      ruleTemplate: 'background-color: $colorsValue',
+      ruleTemplate: 'background-color: $colorsValue;',
     },
   ],
   [
@@ -860,7 +869,7 @@ const rules = [
         ['m', 'margin'],
       ],
       classTemplate: '.$mapKey$spacingDirectionsKey$spacingSizesKey$mediaQuery',
-      ruleTemplate: '$spacingDirectionsValue',
+      ruleTemplate: '$spacingDirectionsValue;',
     },
   ],
   [
@@ -872,7 +881,7 @@ const rules = [
         ['n', 'margin'],
       ],
       classTemplate: '.$mapKey$spacingNegativeDirectionsKey$spacingNegativeSizesKey$mediaQuery',
-      ruleTemplate: '$spacingNegativeDirectionsValue',
+      ruleTemplate: '$spacingNegativeDirectionsValue;',
     },
   ],
   [
@@ -890,7 +899,7 @@ const rules = [
         ['underline', 'underline'],
         ['no-underline', 'none'],
       ],
-      ruleTemplate: 'text-decoration: $mapValue',
+      ruleTemplate: 'text-decoration: $mapValue;',
     },
   ],
   [
@@ -904,7 +913,7 @@ const rules = [
         ['c', 'center'],
         ['j', 'justify'],
       ],
-      ruleTemplate: 'text-align: $mapValue',
+      ruleTemplate: 'text-align: $mapValue;',
     },
   ],
   [
@@ -918,7 +927,7 @@ const rules = [
         ['u', 'uppercase'],
         ['n', 'none'],
       ],
-      ruleTemplate: 'text-transform: $mapValue',
+      ruleTemplate: 'text-transform: $mapValue;',
     },
   ],
   [
@@ -927,8 +936,8 @@ const rules = [
       repeatForMediaQueries: true,
       prefix: 'f',
       map: [
-        [['-6','-headline'], '6'],
-        [['-5', '-subheadline'], '5'],
+        [['-6','-headline'], '6'],     // equivalent to ['-6', '6'], ['-headline', '6'],
+        [['-5', '-subheadline'], '5'], // equivalent to ['-5', '5'], ['-subheadline', '5'],
         ['1', '3'],
         ['2', '2.25'],
         ['3', '1.5'],
@@ -937,14 +946,14 @@ const rules = [
         ['6', '.875'],
         ['7', '.75'],
       ],
-      ruleTemplate: 'font-size: $mapValuerem',
+      ruleTemplate: 'font-size: $mapValuerem;',
     },
   ],
   [
     'typography',
     {
       repeatForMediaQueries: true,
-      customRules: [
+      mapWithDefaultTemplates: [
         ['measure', 'max-width: 30em;'],
         ['measure-wide', 'max-width: 34em;'],
         ['measure-narrow', 'max-width: 20em;'],
@@ -964,7 +973,7 @@ const rules = [
     'custom-utilities',
     {
       repeatForMediaQueries: true,
-      customRules: [
+      mapWithDefaultTemplates: [
         ['center', 'margin-right: auto; margin-left: auto;'],
         ['mr-auto', 'margin-right: auto;'],
         ['ml-auto', 'margin-left: auto;'],
@@ -975,7 +984,7 @@ const rules = [
     'visibility',
     {
       repeatForMediaQueries: true,
-      customRules: [
+      mapWithDefaultTemplates: [
         ['clip', 'position: fixed !important; _position: absolute !important; clip: rect(1px 1px 1px 1px); /* IE6, IE7 */ clip: rect(1px, 1px, 1px, 1px);'],
       ],
     },
@@ -989,7 +998,7 @@ const rules = [
         ['nowrap', 'nowrap'],
         ['pre', 'pre'],
       ],
-      ruleTemplate: 'white-space: $mapValue',
+      ruleTemplate: 'white-space: $mapValue;',
     },
   ],
   [
@@ -1003,7 +1012,7 @@ const rules = [
         ['top', 'top'],
         ['btm', 'bottom'],
       ],
-      ruleTemplate: 'vertical-align: $mapValue',
+      ruleTemplate: 'vertical-align: $mapValue;',
     },
   ],
   [
@@ -1046,8 +1055,9 @@ const tachyonsConfig = {
   rules,
 };
 
-console.log('config', tachyonsConfig);
+console.log('config', util.inspect(tachyonsConfig, {showHidden: false, depth: null}));
 
-console.log('tachyons css', (
-  new ParticleEmitter(tachyonsConfig)).getCss()
+console.log(
+  'tachyons css',
+  (new ParticleEmitter(tachyonsConfig)).getCss()
 );
