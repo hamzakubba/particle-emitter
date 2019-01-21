@@ -340,6 +340,7 @@ template {
   display: none;
 }
 
+
 /*
 
   BOX SIZING
@@ -389,6 +390,7 @@ input[type="url"],
 }
 
 
+
 .aspect-ratio--16x9 { padding-bottom: 56.25%; }
 .aspect-ratio--9x16 { padding-bottom: 177.77%; }
 .aspect-ratio--4x3 { padding-bottom: 75%; }
@@ -413,6 +415,7 @@ input[type="url"],
 /* Responsive images! */
 
 img { max-width: 100%; }
+
 
 
 .cover { background-size: cover!important; }
@@ -544,6 +547,7 @@ img { max-width: 100%; }
   overflow:   scroll;
 }
 
+
 .top-0 { top: 0; }
 .right-0 { right: 0; }
 .bottom-0 { bottom: 0; }
@@ -571,6 +575,7 @@ img { max-width: 100%; }
 .cf:after { content: " "; display: table; }
 .cf:after { clear: both; }
 .cf { *zoom: 1; }
+
 .cl { clear: left; }
 .cr { clear: right; }
 .cb { clear: both; }
@@ -647,106 +652,21 @@ img { max-width: 100%; }
 .fr { float: right; _display: inline; }
 .fn { float: none }
 
-/*
-
-   FONT FAMILY GROUPS
-   Docs: http://tachyons.io/docs/typography/font-family/
-
-*/
-
-
-.sans-serif {
-  font-family: -apple-system, BlinkMacSystemFont,
-  'avenir next', avenir,
-  'helvetica neue', helvetica,
-  ubuntu,
-  roboto, noto,
-  'segoe ui', arial,
-  sans-serif;
-}
-
-.serif {
-  font-family: georgia,
-  times,
-  serif;
-}
-
-.system-sans-serif {
-  font-family: sans-serif;
-}
-
-.system-serif {
-  font-family: serif;
-}
-
-
-/* Monospaced Typefaces (for code) */
-
-/* From http://cssfontstack.com */
-code, .code {
-  font-family: Consolas,
-  monaco,
-  monospace;
-}
-
-.courier {
-  font-family: 'Courier Next',
-  courier,
-  monospace;
-}
-
-
-/* Sans-Serif Typefaces */
-
-.helvetica {
-  font-family: 'helvetica neue', helvetica,
-  sans-serif;
-}
-
-.avenir {
-  font-family: 'avenir next', avenir,
-  sans-serif;
-}
-
-
-/* Serif Typefaces */
-
-.athelas {
-  font-family: athelas,
-  georgia,
-  serif;
-}
-
-.georgia {
-  font-family: georgia,
-  serif;
-}
-
-.times {
-  font-family: times,
-  serif;
-}
-
-.bodoni {
-  font-family: "Bodoni MT",
-  serif;
-}
-
-.calisto {
-  font-family: "Calisto MT",
-  serif;
-}
-
-.garamond {
-  font-family: garamond,
-  serif;
-}
-
-.baskerville {
-  font-family: baskerville,
-  serif;
-}
-
+code, .code { font-family: Consolas, monaco, monospace; }
+.sans-serif { font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto, 'segoe ui', arial, sans-serif; }
+.serif { font-family: georgia, times, serif; }
+.system-sans-serif { font-family: sans-serif; }
+.system-serif { font-family: serif; }
+.courier { font-family: 'Courier Next', courier, monospace; }
+.helvetica { font-family: 'helvetica neue', helvetica, sans-serif; }
+.avenir { font-family: 'avenir next', avenir, sans-serif; }
+.athelas { font-family: athelas, georgia, serif; }
+.georgia { font-family: georgia, serif; }
+.times { font-family: times, serif; }
+.bodoni { font-family: "Bodoni MT", serif; }
+.calisto { font-family: "Calisto MT", serif; }
+.garamond { font-family: garamond, serif; }
+.baskerville { font-family: baskerville, serif; }
 
 .i { font-style: italic; }
 .fs-normal { font-style: normal; }
@@ -780,6 +700,7 @@ code, .code {
   border: 0;
   padding: 0;
 }
+
 
 .h1 { height: 1rem; }
 .h2 { height: 2rem; }
@@ -839,6 +760,7 @@ code, .code {
 }
 
 
+
 /*
 
    LISTS
@@ -847,6 +769,7 @@ code, .code {
 */
 
 .list {         list-style-type: none; }
+
 
 .mw-100 { max-width: 100%; }
 .mw1 { max-width: 1rem; }
@@ -1360,6 +1283,7 @@ code, .code {
   background-color: rgba(0,0,0,.1);
 }
 
+
 .strike { text-decoration: line-through; }
 .underline { text-decoration: underline; }
 .no-underline { text-decoration: none; }
@@ -1394,6 +1318,7 @@ code, .code {
 .truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .overflow-container { overflow-y: scroll; }
+
 .center { margin-right: auto; margin-left: auto; }
 .mr-auto { margin-right: auto; }
 .ml-auto { margin-left: auto; }
@@ -1570,40 +1495,6 @@ code, .code {
 }
 
 
-/*
-
-  Z-INDEX
-
-  Base
-    z = z-index
-
-  Modifiers
-    -0 = literal value 0
-    -1 = literal value 1
-    -2 = literal value 2
-    -3 = literal value 3
-    -4 = literal value 4
-    -5 = literal value 5
-    -999 = literal value 999
-    -9999 = literal value 9999
-
-    -max = largest accepted z-index value as integer
-
-    -inherit = string value inherit
-    -initial = string value initial
-    -unset = string value unset
-
-  MDN: https://developer.mozilla.org/en/docs/Web/CSS/z-index
-  Spec: http://www.w3.org/TR/CSS2/zindex.html
-  Articles:
-    https://philipwalton.com/articles/what-no-one-told-you-about-z-index/
-
-  Tips on extending:
-  There might be a time worth using negative z-index values.
-  Or if you are using tachyons with another project, you might need to
-  adjust these values to suit your needs.
-
-*/
 
 .z-0 { z-index: 0; }
 .z-1 { z-index: 1; }
@@ -1611,18 +1502,12 @@ code, .code {
 .z-3 { z-index: 3; }
 .z-4 { z-index: 4; }
 .z-5 { z-index: 5; }
-
 .z-999 { z-index: 999; }
 .z-9999 { z-index: 9999; }
-
-.z-max {
-  z-index: 2147483647;
-}
-
+.z-max { z-index: 2147483647; }
 .z-inherit { z-index: inherit; }
 .z-initial { z-index: initial; }
 .z-unset { z-index: unset; }
-
 
 /*
 
@@ -1682,6 +1567,7 @@ code, .code {
 }
 
 
+
 /*
 
   DEBUG CHILDREN
@@ -1695,6 +1581,7 @@ code, .code {
 .debug * { outline: 1px solid gold; }
 .debug-white * { outline: 1px solid white; }
 .debug-black * { outline: 1px solid black; }
+
 
 
 /*
@@ -1723,6 +1610,7 @@ code, .code {
 .debug-grid-16-solid {
   background:white url(data:image/gif;base64,R0lGODdhEAAQAPEAAADw/wDx/xXy/////ywAAAAAEAAQAAACIZyPKckYDQFsb6ZqD85jZ2+BkwiRFKehhqQCQgDHcgwEBQA7) repeat top left;
 }
+
 
 
 @media screen and (min-width: 30em) {

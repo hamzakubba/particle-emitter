@@ -142,7 +142,7 @@ export default class ParticleEmitter {
     } = value;
 
     if (!mediaQuery && staticRules) {
-      ruleCss += staticRules;
+      ruleCss += staticRules + '\n';
     }
 
     const repeatForMaps = new Map();
