@@ -1,6 +1,6 @@
 {
   "name": "particle-emitter",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "license": "MIT",
   "main": "build/ParticleEmitter.js",
   "homepage": "https://github.com/hamzakubba/particle-emitter",
@@ -10,6 +10,7 @@
   },
   "scripts": {
     "build": "babel --out-file build/ParticleEmitter.js ./src/ParticleEmitter.js",
+    "build-tachyons-config": "babel --out-file build/tachyons-config.js ./examples/tachyons/config.js",
     "tachyons": "babel-node ./examples/tachyons/example.js",
     "tachyons-spacing-only": "babel-node ./examples/tachyons-spacing-only/example.js"
   }
