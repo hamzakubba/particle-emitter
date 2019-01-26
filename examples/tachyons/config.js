@@ -149,7 +149,7 @@ const lists = [
   ['overflows', overflows],
 ];
 
-const defaultClassTemplate = '.$prefix$mapKey$suffix$mediaQuery';
+const defaultSelectorTemplate = '.$prefix$mapKey$suffix$mediaQuery';
 const defaultRuleTemplate = '$mapValue';
 
 const rules = [
@@ -171,8 +171,8 @@ const rules = [
       prefix: 'aspect-ratio',
       repeatForMediaQueries: true,
 
-      // map uses the rule's classTemplate and ruleTemplate if specified, and falls back
-      // to defaultClassTemplate and defaultRuleTemplate respectively when unspecified
+      // map uses the rule's selectorTemplate and ruleTemplate if specified, and falls back
+      // to defaultSelectorTemplate and defaultRuleTemplate respectively when unspecified
       map: [
         ['--16x9', '56.25'],
         ['--9x16', '177.77'],
@@ -188,7 +188,7 @@ const rules = [
       ],
       ruleTemplate: 'padding-bottom: $mapValue%;',
 
-      // mapWithDefaultTemplates uses the defaultClassTemplate and defaultRuleTemplate
+      // mapWithDefaultTemplates uses the defaultSelectorTemplate and defaultRuleTemplate
       mapWithDefaultTemplates: [
         ['', 'height: 0; position: relative;'],
         ['--object', 'position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; z-index: 100;'],
@@ -247,7 +247,7 @@ const rules = [
       prefix: 'b',
       repeatForMediaQueries: true,
       // for this particular rule, mapWithDefaultTemplates is equivalent because there is no ruleTemplate
-      // nor classTemplate defined for the rule
+      // nor selectorTemplate defined for the rule
       map: [
         ['a', 'border-style: solid; border-width: 1px;'],
         ['t', 'border-top-style: solid; border-top-width: 1px;'],
@@ -263,7 +263,7 @@ const rules = [
     {
       prefix: 'b--',
       repeatFor: ['colors'],
-      classTemplate: '.$prefix$colorsKey',
+      selectorTemplate: '.$prefix$colorsKey',
       ruleTemplate: 'border-color: $colorsValue;',
     },
   ],
@@ -359,7 +359,7 @@ const rules = [
         ['--1', '-1rem'],
         ['--2', '-2rem'],
       ],
-      classTemplate: '.$directionsKey$mapKey$mediaQuery',
+      selectorTemplate: '.$directionsKey$mapKey$mediaQuery',
       ruleTemplate: '$directionsKey: $mapValue;',
       mapWithDefaultTemplates: [
         ['absolute--fill', 'top: 0; right: 0; bottom: 0; left: 0;'],
@@ -758,23 +758,23 @@ const rules = [
         ['4', '8rem'],
         ['5', '16rem'],
 
-        ['-10',  '10%'],
-        ['-20',  '20%'],
-        ['-25',  '25%'],
-        ['-30',  '30%'],
+        ['-10',  '10%'], // 1/10
+        ['-20',  '20%'], // 2/10 1/5
+        ['-25',  '25%'], //      1/4
+        ['-30',  '30%'], // 3/10
         ['-33',  '33%'],
+        ['-third', 'calc(100% / 3)'], // 1/3
         ['-34',  '34%'],
-        ['-40',  '40%'],
-        ['-50',  '50%'],
-        ['-60',  '60%'],
-        ['-70',  '70%'],
-        ['-75',  '75%'],
-        ['-80',  '80%'],
-        ['-90',  '90%'],
-        ['-100', '100%'],
+        ['-40',  '40%'], // 4/10 2/5
+        ['-50',  '50%'], // 5/10 1/2
+        ['-60',  '60%'], // 6/10 3/5
+        ['-two-thirds', 'calc(100% / 1.5)'], // 2/3
+        ['-70',  '70%'], // 7/10
+        ['-75',  '75%'], //      3/4
+        ['-80',  '80%'], // 8/10 4/5
+        ['-90',  '90%'], // 9/10
+        ['-100', '100%'],// full
 
-        ['-third', 'calc(100% / 3)'],
-        ['-two-third', 'calc(100% / 1.5)'],
         ['-auto', 'auto'],
       ],
       ruleTemplate: 'width: $mapValue;',
@@ -787,7 +787,7 @@ const rules = [
       repeatFor: ['overflows'],
       repeatForMediaQueries: true,
       map: ['', '-x', '-y'],
-      classTemplate: '.$prefix$mapKey-$overflowsKey$mediaQuery',
+      selectorTemplate: '.$prefix$mapKey-$overflowsKey$mediaQuery',
       ruleTemplate: 'overflow$mapKey: $overflowsKey;',
     },
   ],
@@ -842,7 +842,7 @@ const rules = [
     'skins',
     {
       repeatFor: ['colors'],
-      classTemplate: '.$colorsKey',
+      selectorTemplate: '.$colorsKey',
       ruleTemplate: 'color: $colorsValue;',
     },
   ],
@@ -850,7 +850,7 @@ const rules = [
     'skins-bg',
     {
       repeatFor: ['colors'],
-      classTemplate: '.bg-$colorsKey',
+      selectorTemplate: '.bg-$colorsKey',
       ruleTemplate: 'background-color: $colorsValue;',
     },
   ],
@@ -858,7 +858,7 @@ const rules = [
     'skins-pseudo-hover-color',
     {
       repeatFor: ['colors'],
-      classTemplate: '.hover-$colorsKey:hover,.hover-$colorsKey:focus',
+      selectorTemplate: '.hover-$colorsKey:hover,.hover-$colorsKey:focus',
       ruleTemplate: 'color: $colorsValue;',
     },
   ],
@@ -866,7 +866,7 @@ const rules = [
     'skins-pseudo-hover-bg-color',
     {
       repeatFor: ['colors'],
-      classTemplate: '.hover-bg-$colorsKey:hover, .hover-bg-$colorsKey:focus',
+      selectorTemplate: '.hover-bg-$colorsKey:hover, .hover-bg-$colorsKey:focus',
       ruleTemplate: 'background-color: $colorsValue;',
     },
   ],
@@ -879,7 +879,7 @@ const rules = [
         ['p', 'padding'],
         ['m', 'margin'],
       ],
-      classTemplate: '.$mapKey$spacingDirectionsKey$spacingSizesKey$mediaQuery',
+      selectorTemplate: '.$mapKey$spacingDirectionsKey$spacingSizesKey$mediaQuery',
       ruleTemplate: '$spacingDirectionsValue;',
     },
   ],
@@ -891,7 +891,7 @@ const rules = [
       map: [
         ['n', 'margin'],
       ],
-      classTemplate: '.$mapKey$spacingNegativeDirectionsKey$spacingNegativeSizesKey$mediaQuery',
+      selectorTemplate: '.$mapKey$spacingNegativeDirectionsKey$spacingNegativeSizesKey$mediaQuery',
       ruleTemplate: '$spacingNegativeDirectionsValue;',
     },
   ],
@@ -1075,7 +1075,7 @@ const rules = [
 
 const tachyonsConfig = {
   lists,
-  defaultClassTemplate,
+  defaultSelectorTemplate,
   defaultRuleTemplate,
   mediaQueries,
   rules,

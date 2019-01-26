@@ -8,5 +8,5 @@ console.log('config', util.inspect(tachyonsConfig, {showHidden: false, depth: nu
 
 console.log(
   'tachyons css',
-  (new ParticleEmitter(tachyonsConfig)).getCss()
+  (new ParticleEmitter(tachyonsConfig)).getCss()          // matches output.css in this folder
 );

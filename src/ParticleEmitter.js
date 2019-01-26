@@ -37,14 +37,14 @@ export default class ParticleEmitter {
       rules,
       mediaQueries = [],
       lists = [],
-      defaultClassTemplate = '.$prefix$mapKey$suffix$mediaQuery',
+      defaultSelectorTemplate = '.$prefix$mapKey$suffix$mediaQuery',
       defaultRuleTemplate = '$mapValue;',
     } = JSON.parse(JSON.stringify(config));
 
     this.rules = rules;
     this.mediaQueries = mediaQueries;
     this.lists = lists;
-    this.defaultClassTemplate = defaultClassTemplate;
+    this.defaultSelectorTemplate = defaultSelectorTemplate;
     this.defaultRuleTemplate = defaultRuleTemplate;
 
     this.validate();
@@ -71,7 +71,7 @@ export default class ParticleEmitter {
       lists: Array.from(this.mediaQueries),
       mediaQueries: Array.from(this.mediaQueries),
       rules: Array.from(this.rules),
-      defaultClassTemplate: this.defaultClassTemplate,
+      defaultSelectorTemplate: this.defaultSelectorTemplate,
       defaultRuleTemplate: this.defaultRuleTemplate,
     };
   }
@@ -134,7 +134,7 @@ export default class ParticleEmitter {
       prefix = '',
       suffix = '',
       map,
-      classTemplate = this.defaultClassTemplate,
+      selectorTemplate = this.defaultSelectorTemplate,
       ruleTemplate = this.defaultRuleTemplate,
       staticRules = '',
       mapWithDefaultTemplates = [],
@@ -162,7 +162,7 @@ export default class ParticleEmitter {
           const loop0ValueName = loop0Name + 'Value';
 
           loop0Map.forEach((value0, key0) => {
-            ruleCss += `${indent}${classTemplate} { ${ruleTemplate}; }\n`
+            ruleCss += `${indent}${selectorTemplate} { ${ruleTemplate}; }\n`
               .replace(new RegExp('\\$prefix', 'g'), prefix)
               .replace(new RegExp('\\$suffix', 'g'), suffix)
               .replace(new RegExp('\\$mediaQuery', 'g'), mediaQuery)
@@ -189,7 +189,7 @@ export default class ParticleEmitter {
 
         loop0Map.forEach((value0, key0) => {
           loop1Map.forEach((value1, key1) => {
-            ruleCss += `${indent}${classTemplate} { ${ruleTemplate}; }\n`
+            ruleCss += `${indent}${selectorTemplate} { ${ruleTemplate}; }\n`
               .replace(new RegExp('\\$prefix', 'g'), prefix)
               .replace(new RegExp('\\$suffix', 'g'), suffix)
               .replace(new RegExp('\\$mediaQuery', 'g'), mediaQuery)
@@ -225,7 +225,7 @@ export default class ParticleEmitter {
         loop0Map.forEach((value0, key0) => {
           loop1Map.forEach((value1, key1) => {
             loop2Map.forEach((value2, key2) => {
-              ruleCss += `${indent}${classTemplate} { ${ruleTemplate}; }\n`
+              ruleCss += `${indent}${selectorTemplate} { ${ruleTemplate}; }\n`
                 .replace(new RegExp('\\$prefix', 'g'), prefix)
                 .replace(new RegExp('\\$suffix', 'g'), suffix)
                 .replace(new RegExp('\\$mediaQuery', 'g'), mediaQuery)
@@ -286,7 +286,7 @@ export default class ParticleEmitter {
 
           });
 
-          let loopCss = `${indent}${classTemplate} { ${ruleTemplate} }\n`;
+          let loopCss = `${indent}${selectorTemplate} { ${ruleTemplate} }\n`;
 
           replacements.forEach(([ find, replaceWith ]) => {
             loopCss = loopCss.replace(new RegExp('\\$' + find, 'g'), replaceWith);
@@ -301,7 +301,7 @@ export default class ParticleEmitter {
 
     const mapWithDefaultTemplatesMap = getMap(mapWithDefaultTemplates);
     mapWithDefaultTemplatesMap.forEach((value, key) => {
-      ruleCss += `${indent}${this.defaultClassTemplate} { ${this.defaultRuleTemplate} }\n`
+      ruleCss += `${indent}${this.defaultSelectorTemplate} { ${this.defaultRuleTemplate} }\n`
         .replace(/\$prefix/g, prefix)
         .replace(/\$suffix/g, suffix)
         .replace(/\$mapKey/g, key)

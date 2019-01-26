@@ -25,11 +25,27 @@ console.log(emitter.getCss()); // css
 
 ## Examples
 
-To run the examples, you need to install the dependencies:
+To run the examples, clone the repo from github, then install the dependencies:
 ```
-npm install -g babel-cli
-
 npm install
+```
+You can then run the 4 examples provided using `npm run [name]`.
+
+
+### Simple 1
+This is the simplest example, and shows the basic syntax. You can see the code in [examples/simple1/](examples/simple1/).
+
+To run it:
+```
+npm run simple1
+```
+
+### Simple 2
+This is a slightly more complex example, introducing more syntax such as share-able lists. You can see the code in [examples/simple2/](examples/simple2/).
+
+To run it:
+```
+npm run simple2
 ```
 
 ### Tachyons Spacing

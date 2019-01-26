@@ -1,17 +1,22 @@
 {
   "name": "particle-emitter",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "license": "MIT",
   "main": "build/ParticleEmitter.js",
   "homepage": "https://github.com/hamzakubba/particle-emitter",
   "devDependencies": {
-    "babel-plugin-inline-import": "^3.0.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2"
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/cli": "^7.2.3",
+    "@babel/preset-env": "^7.3.1",
+    "babel-plugin-inline-import": "^3.0.0"
   },
   "scripts": {
-    "build": "babel --out-file build/ParticleEmitter.js ./src/ParticleEmitter.js",
-    "build-tachyons-config": "babel --out-file build/tachyons-config.js ./examples/tachyons/config.js",
-    "tachyons": "babel-node ./examples/tachyons/example.js",
-    "tachyons-spacing-only": "babel-node ./examples/tachyons-spacing-only/example.js"
+    "build": "./node_modules/.bin/babel --out-file build/ParticleEmitter.js ./src/ParticleEmitter.js",
+    "build-tachyons-config": "./node_modules/.bin/babel --out-file build/tachyons-config.js ./examples/tachyons/config.js",
+    "simple1": "./node_modules/.bin/babel-node ./examples/simple1/example.js",
+    "simple2": "./node_modules/.bin/babel-node ./examples/simple2/example.js",
+    "tachyons": "./node_modules/.bin/babel-node ./examples/tachyons/example.js",
+    "tachyons-spacing-only": "./node_modules/.bin/babel-node ./examples/tachyons-spacing-only/example.js"
   }
 }

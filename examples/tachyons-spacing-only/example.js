@@ -45,14 +45,14 @@ const tachyonsSpacingOnlyConfig = {
         //   for <k,v> in map:  ($mapKey, $mapValue)                                               <-- map always first
         //     for <k,v> in spacingDirections:  ($spacingDirectionsKey, $spacingDirectionsValue)   <-- first in repeatFor
         //       for <k,v> in spacingSizes:  ($spacingSizesKey, $spacingSizesValue)                <-- second in repeatFor
-        //         output "classTemplate: { ruleTemplate; }"
+        //         output "selectorTemplate: { ruleTemplate; }"
         repeatFor: ['spacingDirections', 'spacingSizes'],
 
         // repeats the rules for '' (mobile first), '-ns', '-m' and '-l' above
         repeatForMediaQueries: true,
 
         // e.g. '.pa3' or 'mv7-ns'
-        classTemplate: '.$mapKey$spacingDirectionsKey$spacingSizesKey$mediaQuery',
+        selectorTemplate: '.$mapKey$spacingDirectionsKey$spacingSizesKey$mediaQuery',
 
         // e.g. 'padding: .25rem' or 'margin-top: 16rem; margin-bottom: 16rem'
         ruleTemplate: '$spacingDirectionsValue;',
@@ -70,5 +70,5 @@ const particleEmitter = new ParticleEmitter(tachyonsSpacingOnlyConfig);
 
 console.log(
   'tachyons spacing only css',
-  particleEmitter.getCss()
+  particleEmitter.getCss()         // matches output.css in this folder
 );
