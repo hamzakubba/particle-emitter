@@ -1,9 +1,9 @@
 import colors from './lists/colors';
 import directions from './lists/directions';
-import spacingSizes from './lists/spacing-sizes';
-import spacingDirections from './lists/spacing-directions';
-import spacingNegativeSizes from './lists/spacing-negative-sizes';
-import spacingNegativeDirections from './lists/spacing-negative-directions';
+import spacingSizes from './lists/spacingSizes';
+import spacingDirections from './lists/spacingDirections';
+import spacingNegativeSizes from './lists/spacingNegativeSizes';
+import spacingNegativeDirections from './lists/spacingNegativeDirections';
 import overflows from './lists/overflows';
 
 export default [

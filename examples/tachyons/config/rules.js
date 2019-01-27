@@ -21,7 +21,7 @@ import flexboxAlignSelf from './rules/flexboxAlignSelf';
 import flexboxJustifyContent from './rules/flexboxJustifyContent';
 import flexboxAlignContent from './rules/flexboxAlignContent';
 import flexboxOrder from './rules/flexboxOrder';
-import flexboxGrow from './rules/flexbox-grow';
+import flexboxGrow from './rules/flexboxGrow';
 import flexboxShrink from './rules/flexboxShrink';
 import float from './rules/float';
 import fontFamily from './rules/fontFamily'; // "Hi, we're the Fonts!"
