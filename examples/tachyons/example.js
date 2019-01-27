@@ -1,18 +1,7 @@
 import util from 'util';
 
 import ParticleEmitter from '../../src/ParticleEmitter';
-
-import mediaQueries from './config/media-queries';
-import lists from './config/lists';
-import rules from './config/rules';
-
-const tachyonsConfig = {
-  defaultSelectorTemplate: '.$prefix$mapKey$suffix$mediaQuery',
-  defaultRuleTemplate: '$mapValue',
-  mediaQueries,
-  lists,
-  rules,
-};
+import tachyonsConfig from './config';
 
 console.log('config', util.inspect(tachyonsConfig, {showHidden: false, depth: null}));
 
