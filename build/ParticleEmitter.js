@@ -116,56 +116,65 @@ function () {
       });
       css += '\n'; // media-query-dependent rules:
 
-      var indent;
-      this.mediaQueries.forEach(function (mediaQueryMinMax, mediaQuery) {
-        if (!mediaQuery) {
-          mediaQuery = '';
-          indent = '';
-        } else {
-          css += '@media screen';
+      if (this.mediaQueries.size && Array.from(this.rules).filter(function (_ref3) {
+        var _ref4 = _slicedToArray(_ref3, 2),
+            key = _ref4[0],
+            value = _ref4[1];
 
-          if (mediaQueryMinMax[0]) {
-            css += " and (min-width: ".concat(mediaQueryMinMax[0], ")");
+        return value.repeatForMediaQueries;
+      }).length) {
+        var indent;
+        this.mediaQueries.forEach(function (mediaQueryMinMax, mediaQuery) {
+          if (!mediaQuery) {
+            mediaQuery = '';
+            indent = '';
+          } else {
+            css += '@media screen';
+
+            if (mediaQueryMinMax[0]) {
+              css += " and (min-width: ".concat(mediaQueryMinMax[0], ")");
+            }
+
+            if (mediaQueryMinMax[1]) {
+              css += " and (max-width: ".concat(mediaQueryMinMax[1], ")");
+            }
+
+            css += ' {\n';
+            indent = '  ';
           }
 
-          if (mediaQueryMinMax[1]) {
-            css += " and (max-width: ".concat(mediaQueryMinMax[1], ")");
+          _this2.rules.forEach(function (value, key) {
+            if (value.repeatForMediaQueries) {
+              css += _this2.getRuleCss({
+                indent: indent,
+                mediaQuery: mediaQuery,
+                key: key,
+                value: value
+              });
+            }
+          });
+
+          if (mediaQuery) {
+            css += '}';
           }
 
-          css += ' {\n';
-          indent = '  ';
-        }
-
-        _this2.rules.forEach(function (value, key) {
-          if (value.repeatForMediaQueries) {
-            css += _this2.getRuleCss({
-              indent: indent,
-              mediaQuery: mediaQuery,
-              key: key,
-              value: value
-            });
-          }
+          css += '\n\n';
         });
+      }
 
-        if (mediaQuery) {
-          css += '}';
-        }
-
-        css += '\n\n';
-      });
       return css;
     }
   }, {
     key: "getRuleCss",
-    value: function getRuleCss(_ref3) {
+    value: function getRuleCss(_ref5) {
       var _this3 = this;
 
-      var _ref3$indent = _ref3.indent,
-          indent = _ref3$indent === void 0 ? '' : _ref3$indent,
-          _ref3$mediaQuery = _ref3.mediaQuery,
-          mediaQuery = _ref3$mediaQuery === void 0 ? '' : _ref3$mediaQuery,
-          key = _ref3.key,
-          value = _ref3.value;
+      var _ref5$indent = _ref5.indent,
+          indent = _ref5$indent === void 0 ? '' : _ref5$indent,
+          _ref5$mediaQuery = _ref5.mediaQuery,
+          mediaQuery = _ref5$mediaQuery === void 0 ? '' : _ref5$mediaQuery,
+          key = _ref5.key,
+          value = _ref5.value;
       var ruleCss = ''; // ruleCss += `${indent}/***** ${key} *****/\n`;
 
       var _value$prefix = value.prefix,
@@ -306,10 +315,10 @@ function () {
 
             loopStack.forEach(function () {
               var outputDepth = 0;
-              loopStack.forEach(function (_ref4) {
-                var _ref5 = _slicedToArray(_ref4, 2),
-                    key = _ref5[0],
-                    value = _ref5[1];
+              loopStack.forEach(function (_ref6) {
+                var _ref7 = _slicedToArray(_ref6, 2),
+                    key = _ref7[0],
+                    value = _ref7[1];
 
                 replacements.push([loops[outputDepth].keyName, key]);
                 replacements.push([loops[outputDepth].valueName, value]);
@@ -317,10 +326,10 @@ function () {
               });
             });
             var loopCss = "".concat(indent).concat(selectorTemplate, " { ").concat(ruleTemplate, " }\n");
-            replacements.forEach(function (_ref6) {
-              var _ref7 = _slicedToArray(_ref6, 2),
-                  find = _ref7[0],
-                  replaceWith = _ref7[1];
+            replacements.forEach(function (_ref8) {
+              var _ref9 = _slicedToArray(_ref8, 2),
+                  find = _ref9[0],
+                  replaceWith = _ref9[1];
 
               loopCss = loopCss.replace(new RegExp('\\$' + find, 'g'), replaceWith);
             });

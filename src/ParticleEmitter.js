@@ -88,35 +88,37 @@ export default class ParticleEmitter {
 
 
     // media-query-dependent rules:
-    let indent;
-    this.mediaQueries.forEach((mediaQueryMinMax, mediaQuery) => {
-      if (!mediaQuery) {
-        mediaQuery = '';
-        indent = '';
-      } else {
-        css += '@media screen';
-        if (mediaQueryMinMax[0]) {
-          css += ` and (min-width: ${ mediaQueryMinMax[0] })`;
+    if (this.mediaQueries.size && Array.from(this.rules).filter(([key, value]) => value.repeatForMediaQueries).length) {
+      let indent;
+      this.mediaQueries.forEach((mediaQueryMinMax, mediaQuery) => {
+        if (!mediaQuery) {
+          mediaQuery = '';
+          indent = '';
+        } else {
+          css += '@media screen';
+          if (mediaQueryMinMax[0]) {
+            css += ` and (min-width: ${ mediaQueryMinMax[0] })`;
+          }
+          if (mediaQueryMinMax[1]) {
+            css += ` and (max-width: ${ mediaQueryMinMax[1] })`;
+          }
+          css += ' {\n';
+          indent = '  ';
         }
-        if (mediaQueryMinMax[1]) {
-          css += ` and (max-width: ${ mediaQueryMinMax[1] })`;
-        }
-        css += ' {\n';
-        indent = '  ';
-      }
 
-      this.rules.forEach((value, key) => {
-        if (value.repeatForMediaQueries) {
-          css += this.getRuleCss({ indent, mediaQuery, key, value });
+        this.rules.forEach((value, key) => {
+          if (value.repeatForMediaQueries) {
+            css += this.getRuleCss({ indent, mediaQuery, key, value });
+          }
+        });
+
+        if (mediaQuery) {
+          css += '}';
         }
+
+        css += '\n\n';
       });
-
-      if (mediaQuery) {
-        css += '}';
-      }
-
-      css += '\n\n';
-    });
+    }
 
     return css;
   }
