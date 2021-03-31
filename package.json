@@ -1,22 +1,26 @@
 {
   "name": "particle-emitter",
-  "version": "0.4.7",
+  "version": "0.5.0",
   "license": "MIT",
-  "main": "build/ParticleEmitter.js",
+  "main": "./build/particle-emitter/ParticleEmitter.js",
   "homepage": "https://github.com/hamzakubba/particle-emitter",
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/cli": "^7.2.3",
-    "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
-    "babel-plugin-inline-import": "^3.0.0"
+    "@types/node": "^14.14.25",
+    "@types/tape": "^4.13.0",
+    "rimraf": "^3.0.2",
+    "tape": "^5.1.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3",
+    "yarn-or-npm": "^3.0.1"
   },
   "scripts": {
-    "build": "./node_modules/.bin/babel --out-file build/ParticleEmitter.js ./src/ParticleEmitter.js",
-    "build-examples": "./node_modules/.bin/babel ./examples --out-dir ./build/examples",
-    "simple1": "./node_modules/.bin/babel-node ./examples/simple1/example.js",
-    "simple2": "./node_modules/.bin/babel-node ./examples/simple2/example.js",
-    "tachyons": "./node_modules/.bin/babel-node ./examples/tachyons/example.js",
-    "tachyons-spacing-only": "./node_modules/.bin/babel-node ./examples/tachyons-spacing-only/example.js"
+    "build": "yon run clean && tsc",
+    "clean": "rimraf build",
+    "preparePublish": "yon run test && yon run build && ts-node ./scripts/preparePublish",
+    "simple1": "ts-node ./examples/simple1/example.ts",
+    "simple2": "ts-node ./examples/simple2/example.ts",
+    "tachyons": "ts-node ./examples/tachyons/example.ts",
+    "tachyons-spacing-only": "ts-node ./examples/tachyons-spacing-only/example.ts",
+    "test": "ts-node ./tests/runTests.ts"
   }
 }

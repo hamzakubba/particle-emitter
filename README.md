@@ -5,6 +5,11 @@ An Atomic-CSS Library Generator
 ```
 npm install --save particle-emitter
 ```
+or
+```
+yarn add particle-emitter
+```
+
 
 ```
 import ParticleEmitter from 'particle-emitter';
@@ -57,7 +62,7 @@ npm run tachyons-spacing-only
 ```
 
 ### Tachyons
-An example that generates the complete [Tachyons library's CSS](http://tachyons.io/) (or pretty close) is available in [examples/tachyons/](examples/tachyons/).
+An example that generates the complete [Tachyons library's CSS](http://tachyons.io/) (with very minor differences) is available in [examples/tachyons/](examples/tachyons/).
 
 To run it:
 ```
